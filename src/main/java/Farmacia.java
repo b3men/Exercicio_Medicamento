@@ -4,6 +4,17 @@ import java.util.ArrayList;
 
 public class Farmacia {
 
+    public static ArrayList<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+    public static ArrayList<Medicamento> getMedicamentos() {
+        return medicamentos;
+    }
+
+    public static ArrayList<Prescricao> getPrescricoes() {
+        return prescricoes;
+    }
 
     static ArrayList<Paciente> pacientes = new ArrayList<>();
     static ArrayList<Medicamento> medicamentos = new ArrayList<>();
@@ -18,19 +29,13 @@ public class Farmacia {
     }
 
     public class validaPacienteMedicamento {//valida e faz a prescrição no mesmo momento
-        public static void fazPrescricao(Paciente paciente, Medicamento medicamento) {
+        public boolean fazPrescricao(Paciente paciente, Medicamento medicamento) {
             String ret = " ";
             if (medicamento.getIndicacoes().contains(paciente.getSintoma())) {
                 prescricoes.add(new Prescricao(paciente, medicamentos));
-                ret += "O medicamento " + medicamento.getNome() + " não é indicado para o" +
-                        paciente.getNome() + ", pois o sintoma " + paciente.getSintoma() + "não é compatível com as indicações";
-            } else {
-                Prescricao prescricao = new Prescricao(paciente);
-                prescricao.adicionaMedicamentoPrescricao(medicamento);
-                prescricoes.add(prescricao);
-                ret += "Prescrição salva!";
+                return true;
             }
-            JOptionPane.showMessageDialog(null, ret);
+            return false;
         }
     }
 
